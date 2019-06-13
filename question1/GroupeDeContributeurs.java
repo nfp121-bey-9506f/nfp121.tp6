@@ -48,23 +48,38 @@ public class GroupeDeContributeurs extends Cotisant implements Iterable<Cotisant
   
   public void debit(int somme) throws SoldeDebiteurException{
     for(Cotisant c : liste){
-        Contributeur con = (Contributeur) c;
-        con.debit(somme);
+        if(c instanceof Contributeur){
+            Contributeur con = (Contributeur) c;
+            con.debit(somme);
+        }else{
+            GroupeDeContributeurs g = (GroupeDeContributeurs) c;
+            g.debit(somme);
+        }
     }
   }
   
   public void credit(int somme){
     for(Cotisant c : liste){
-        Contributeur con = (Contributeur) c;
-        con.credit(somme);
+        if(c instanceof Contributeur){
+            Contributeur con = (Contributeur) c;
+            con.credit(somme);
+        }else{
+            GroupeDeContributeurs g = (GroupeDeContributeurs) c;
+            g.credit(somme);
+        }
     }
   }
   
   public int solde(){
     int solde = 0;
     for(Cotisant c : liste){
-        Contributeur con = (Contributeur) c;
-        solde += con.solde();
+        if(c instanceof Contributeur){
+            Contributeur con = (Contributeur) c;
+            solde += con.solde();
+        }else{
+            GroupeDeContributeurs g =(GroupeDeContributeurs) c;
+            solde += g.solde();
+        }
     }
     return solde;
   }
