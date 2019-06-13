@@ -12,41 +12,60 @@ public class GroupeDeContributeurs extends Cotisant implements Iterable<Cotisant
   
   public GroupeDeContributeurs(String nomDuGroupe){
     super(nomDuGroupe);
-    // a completer
+    liste = new ArrayList<Cotisant>();
   }
   
   public void ajouter(Cotisant cotisant){
-    // a completer
+    liste.add(cotisant);
   }
   
   
   public int nombreDeCotisants(){
     int nombre = 0;
-    // a completer
+    nombre = liste.size();
     return nombre;
   }
   
   public String toString(){
     String str = new String();
-    // a completer
+    str += "Groupe de contributeurs : " +"\""+ nom  +"\"" + "formé par:";
+    Iterator<Cotisant> it = iterator();
+    while(it.hasNext()){
+        String name = it.next().nom();
+        str+= "\nContributeur :" + name;
+    }
     return str;
+    // En utilisant Visiteur
+    // VisiteurToString visiteur = new VisiteurToString();
+    // String str1 = visiteur.visite(this);
+    // return str1;
+    
   }
   
   public List<Cotisant> getChildren(){
-    return null;// a completer
+    return liste;
   }
   
   public void debit(int somme) throws SoldeDebiteurException{
-    // a completer
+    for(Cotisant c : liste){
+        Contributeur con = (Contributeur) c;
+        con.debit(somme);
+    }
   }
   
   public void credit(int somme){
-    // a completer
+    for(Cotisant c : liste){
+        Contributeur con = (Contributeur) c;
+        con.credit(somme);
+    }
   }
   
   public int solde(){
     int solde = 0;
-    // a completer
+    for(Cotisant c : liste){
+        Contributeur con = (Contributeur) c;
+        solde += con.solde();
+    }
     return solde;
   }
   
