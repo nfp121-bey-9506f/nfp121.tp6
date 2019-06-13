@@ -15,14 +15,12 @@ public class SansDoublon implements Visiteur<Boolean>{
   public Boolean visite(GroupeDeContributeurs g){
     boolean res = true;
     List<Cotisant> liste = g.getChildren();
-    int i = 0;
-    while(i < liste.size()){
-        Cotisant c1 = liste.get(i);
-        if(i==liste.size()-1) break;
-        Cotisant c2 = liste.get(++i);
-        
-        if(c1.nom().equals(c2.nom())) {res =false; break;}
-        
+    for(int i =0;i < liste.size();i++){
+        Cotisant c = liste.get(i);
+        for(int j=i+1;j<liste.size();j++){
+            Cotisant c2 = liste.get(j);
+            if(c.nom().equals(c2.nom())) {res =false; break;}
+        }
     }
     return res ;
   }
