@@ -2,6 +2,7 @@ package question4;
 
 import question1.Contributeur;
 import question1.GroupeDeContributeurs;
+import question1.SoldeDebiteurException;
 import question2.*;
 import question3.*;
 import static question2.Main.*;
@@ -48,8 +49,29 @@ public class IHM extends JFrame {
             resultat.setText(Main.arbreXML(g)); //actualiser();
         }catch(Exception e){}
 
-        debiter.addActionListener(null/* a completer */);
-        crediter.addActionListener(null/* a completer */);
+        debiter.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent avt){
+                int valeur = Integer.valueOf(somme.getText());
+                try{
+                    g.debit(valeur);
+                    try{
+                        resultat.setText(Main.arbreXML(g)); //actualiser();
+                    }catch(Exception e){}
+                }catch(SoldeDebiteurException e){
+                    System.out.println(e.getMessage());
+                }   
+            }   
+        }); 
+        
+        crediter.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent avt){
+                int valeur = Integer.valueOf(somme.getText());
+                g.credit(valeur);
+                try{
+                    resultat.setText(Main.arbreXML(g)); //actualiser();
+                }catch(Exception e){}
+            }
+        });
 
             
         this.pack();
