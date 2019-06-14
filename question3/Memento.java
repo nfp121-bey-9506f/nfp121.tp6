@@ -3,18 +3,20 @@ package question3;
 import question1.*;
 import java.util.*;
 
-public class Memento {
+public class Memento{
      // Note : Un usage du patron Memento, 
      //        d’un premier visiteur pour la sauvegarde et 
      //        d’un second pour la restitution du composite, 
      //        représentent une solution possible. 
      
      public Memento(Cotisant c) {
-       // sauvegarde
-     }
+         GroupeDeContributeurs g = (GroupeDeContributeurs) c;
+         g.accepter(new VisiteurSauvegarder());
+        }
 
      public void setState(Cotisant c) {
-       // restitution
+         GroupeDeContributeurs g = (GroupeDeContributeurs) c;
+         g.accepter(new VisiteurRestituer());
      }
     
     }
